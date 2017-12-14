@@ -45,7 +45,7 @@ scrape_configs:
       - targets: ['localhost:9090']
 EOF
 
-docker stack deploy -c monitor.yml monitor
+docker stack deploy -c prometheus.yml prometheus
 
 sleep 30
 
