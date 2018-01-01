@@ -9,7 +9,12 @@ services:
             - /sys:/host/sys:ro
             - /:/host/rootfs:ro
         ports:
-            - 9100:9100
+            - target: 9100
+              published: 9100
+              protocol: tcp
+              mode: host
+        deploy:
+            mode: global
 
     cadvisor:
         image: "google/cadvisor:v0.28.3"
@@ -19,7 +24,10 @@ services:
             - /var/run:/var/run:ro
             - /var/lib/docker:/var/lib/docker:ro
         ports:
-            - 8080:8080
+            - target: 8080
+              published: 8080
+              protocol: tcp
+              mode: host
         deploy:
             mode: global
 
@@ -49,7 +57,7 @@ services:
                 com.docker.lb.port: 3000
         environment:
             - "GF_SECURITY_ADMIN_USER=admin"
-            - "GF_SECURITY_ADMIN_PASSWORD=grafana"
+            - "GF_SECURITY_ADMIN_PASSWORD=Pa22word"
             - "GF_USERS_ALLOW_SIGN_UP=false"
 
 configs:

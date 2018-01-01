@@ -58,11 +58,11 @@ docker stack deploy -c prometheus.yml prometheus
 sleep 30
 
 echo -n " confgiuring grafana through the api "
-curl -skX POST  http://admin:grafana@app.dockr.life:3000/api/datasources -H 'Content-Type: application/json' -d "{ \"name\": \"prometheus\",\"type\": \"prometheus\",\"Access\": \"proxy\",\"url\": \"http://prometheus:9090\",\"basicAuth\": false }" > /dev/null 2>&1
+curl -skX POST  http://admin:Pa22word@app.dockr.life:3000/api/datasources -H 'Content-Type: application/json' -d "{ \"name\": \"prometheus\",\"type\": \"prometheus\",\"Access\": \"proxy\",\"url\": \"http://prometheus:9090\",\"basicAuth\": false }" > /dev/null 2>&1
 
-curl -skX POST http://admin:grafana@app.dockr.life:3000/api/dashboards/import -H 'Content-Type: application/json;charset=UTF-8' -H 'Accept: application/json, text/plain, */*' -d @cluster.json > /dev/null 2>&1
+curl -skX POST http://admin:Pa22word@app.dockr.life:3000/api/dashboards/import -H 'Content-Type: application/json;charset=UTF-8' -H 'Accept: application/json, text/plain, */*' -d @cluster.json > /dev/null 2>&1
 
-curl -skX POST http://admin:grafana@app.dockr.life:3000/api/dashboards/import -H 'Content-Type: application/json;charset=UTF-8' -H 'Accept: application/json, text/plain, */*' -d @containers.json > /dev/null 2>&1
+curl -skX POST http://admin:Pa22word@app.dockr.life:3000/api/dashboards/import -H 'Content-Type: application/json;charset=UTF-8' -H 'Accept: application/json, text/plain, */*' -d @containers.json > /dev/null 2>&1
 echo "$GREEN" "[ok]" "$NORMAL"
 
-echo " grafana's login : admin / grafana "
+echo " grafana's login : admin / Pa22word "
