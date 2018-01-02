@@ -55,7 +55,14 @@ EOF
 
 docker stack deploy -c prometheus.yml prometheus
 
-sleep 30
+count=0
+limit=60
+int=5
+while ! curl -m 1 -ks http://app.dockr.life:3000/api/health; do
+    echo waiting for grafana to come up: ${count}/${limit} seconds
+    sleep $int
+    count=$(($count+$int))
+done
 
 echo -n " confgiuring grafana through the api "
 curl -skX POST  http://admin:Pa22word@app.dockr.life:3000/api/datasources -H 'Content-Type: application/json' -d "{ \"name\": \"prometheus\",\"type\": \"prometheus\",\"Access\": \"proxy\",\"url\": \"http://prometheus:9090\",\"basicAuth\": false }" > /dev/null 2>&1
