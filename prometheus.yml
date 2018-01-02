@@ -7,17 +7,17 @@ services:
         volumes:
             - /proc:/host/proc:ro
             - /sys:/host/sys:ro
-            - /:/host/rootfs:ro
+            - /:/host/rootfs:ro,rslave
         ports:
             - 9100:9100
 
     cadvisor:
         image: "google/cadvisor:v0.28.3"
         volumes:
-            - /:/rootfs:ro
+            - /:/rootfs:ro,rslave
             - /sys:/sys:ro
             - /var/run:/var/run:ro
-            - /var/lib/docker:/var/lib/docker:ro
+            - /var/lib/docker:/var/lib/docker:ro,rslave
         ports:
             - 8080:8080
         deploy:
