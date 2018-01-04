@@ -31,7 +31,6 @@ com.docker.lb.hosts: grafana.dockr.life
 com.docker.lb.port: 3000
 ```
 
-
 ## Future
 Currently Docker engine provides a prometheus endpoint. This is currently experimental, but I have hopes that it can replace cadvisor. If you want to play with it you can enable it at each engine with :
 ```
