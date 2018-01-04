@@ -20,9 +20,9 @@ To deploy you will need a swarm cluster and a docker engine. Ideally you would u
 
 Source the client bundle, `. ./env.sh`.
 
-And run the deploy script with all the IPs or FQDNs of your cluster.
+And run the deploy script...
 Example :
-`./deploy_prometheus.sh 67.205.191.201 67.205.190.204 67.205.187.49`
+`./deploy_prometheus.sh`
 Right now the script does not allow for updating.
 
 You can ignore the deploy labels in the prometheus.yml. They are for interlock 2.0.

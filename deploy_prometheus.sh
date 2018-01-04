@@ -4,25 +4,33 @@ set -e
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 NORMAL=$(tput sgr0)
-
-NODES=$@
-
-if [ -z "${NODES}" ]; then
-    echo "Usage: $0 <node> [node] [node]"
-    echo "Have you read the README.md?"
-    exit 1
-fi
-
 NODE_TARGETS=""
 ENGINE_TARGETS=""
 CADVISOR_TARGETS=""
 
+#error checking for client bundle
+if [ -z $DOCKER_HOST ]; then
+  echo "$RED" " Are you using a client bundle? " "$NORMAL"
+  exit 1
+fi
+
+if [[ $(docker config ls | grep service.prometheus.conf | wc -l) = 1 ]]; then
+  echo "$RED" "You already have prometheus deployed..." "$NORMAL"
+  exit 1
+fi
+
+#get node list
+echo -n " getting node list - "
+node_list=$(for NODE in $(docker node ls --format '{{.Hostname}}'); do echo -n "$(docker node inspect --format '{{.Status.Addr}}' "${NODE}") "; done; echo "")
+
 # load images
-for node in ${NODES}; do
+for node in ${node_list}; do
     NODE_TARGETS="${NODE_TARGETS}'${node}:9100',"
     ENGINE_TARGETS="${ENGINE_TARGETS}'${node}:9323',"
     CADVISOR_TARGETS="${CADVISOR_TARGETS}'${node}:8080',"
 done
+echo "$GREEN" "[ok]" "$NORMAL"
+
 
 echo -n " creating prometheus config - "
 cat << EOF | docker config create service.prometheus.conf -
@@ -51,10 +59,13 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 EOF
+echo "$GREEN" "[ok]" "$NORMAL"
 
-
+echo -n " deploying stack "
 docker stack deploy -c prometheus.yml prometheus
+echo "$GREEN" "[ok]" "$NORMAL"
 
+echo -n " waiting for grafana"
 sleep 30
 
 echo -n " confgiuring grafana through the api "
