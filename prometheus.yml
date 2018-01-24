@@ -66,5 +66,4 @@ configs:
             name: service.prometheus.conf
 
 networks:
-    default:
     monitor:
