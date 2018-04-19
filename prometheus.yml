@@ -46,7 +46,7 @@ services:
                 com.docker.lb.port: 9090
 
     grafana:
-        image: "grafana/grafana:4.6.2"
+        image: "grafana/grafana:5.0.0-beta2"
         networks:
             monitor:
         ports:

@@ -28,7 +28,7 @@ done
 echo "$GREEN" "[ok]" "$NORMAL"
 
 echo -n " creating prometheus config file "
-cat << EOF >> service.prometheus.conf
+cat << EOF > service.prometheus.conf
 global:
   scrape_interval:     15s
   evaluation_interval: 15s
