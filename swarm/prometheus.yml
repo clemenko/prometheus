@@ -1,7 +1,7 @@
 version: "3.4"
 services:
     exporter:
-        image: "prom/node-exporter:v0.15.2"
+        image: "prom/node-exporter:v0.16.0"
         command: ["--path.procfs=/host/proc", "--path.sysfs=/host/sys", "--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$$$|/)"]
 
         volumes:
@@ -17,7 +17,7 @@ services:
             mode: global
 
     cadvisor:
-        image: "google/cadvisor:v0.29.0"
+        image: "google/cadvisor:v0.30.2"
         volumes:
             - /:/rootfs:ro
             - /sys:/sys:ro
@@ -32,7 +32,7 @@ services:
             mode: global
 
     prometheus:
-        image: "prom/prometheus:v2.2.1"
+        image: "prom/prometheus:v2.3.1"
         configs:
             - source: prometheus_config
               target: /etc/prometheus/prometheus.yml
@@ -46,7 +46,7 @@ services:
                 com.docker.lb.port: 9090
 
     grafana:
-        image: "grafana/grafana:5.1.1"
+        image: "grafana/grafana:5.2.2"
         networks:
             monitor:
         ports:

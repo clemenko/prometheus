@@ -82,9 +82,9 @@ sleep 30
 echo -n " confgiuring grafana through the api "
 curl -skX POST  http://admin:$password@app.dockr.life:3000/api/datasources -H 'Content-Type: application/json' -d "{ \"name\": \"prometheus\",\"type\": \"prometheus\",\"Access\": \"proxy\",\"url\": \"http://prometheus:9090\",\"basicAuth\": false }" > /dev/null 2>&1
 
-curl -skX POST http://admin:$password@app.dockr.life:3000/api/dashboards/import -H 'Content-Type: application/json;charset=UTF-8' -H 'Accept: application/json, text/plain, */*' -d @cluster.json > /dev/null 2>&1
+curl -skX POST http://admin:$password@app.dockr.life:3000/api/dashboards/import -H 'Content-Type: application/json;charset=UTF-8' -H 'Accept: application/json, text/plain, */*' -d @../cluster.json > /dev/null 2>&1
 
-curl -skX POST http://admin:$password@app.dockr.life:3000/api/dashboards/import -H 'Content-Type: application/json;charset=UTF-8' -H 'Accept: application/json, text/plain, */*' -d @containers.json > /dev/null 2>&1
+curl -skX POST http://admin:$password@app.dockr.life:3000/api/dashboards/import -H 'Content-Type: application/json;charset=UTF-8' -H 'Accept: application/json, text/plain, */*' -d @../containers.json > /dev/null 2>&1
 
 curl -skX PUT http://admin:$password@app.dockr.life:3000/api/org/preferences -H 'Content-Type: application/json;charset=UTF-8' -H 'Accept: application/json, text/plain, */*' -d '{"theme":"light","homeDashboardId":0,"timezone":""}' > /dev/null 2>&1
 
