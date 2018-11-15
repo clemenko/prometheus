@@ -1,22 +1,24 @@
 # clemenko
+# https://github.com/kubernetes/kube-state-metrics
+# 
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: monitoring
 ---
-#apiVersion: rbac.authorization.k8s.io/v1
-#kind: ClusterRoleBinding
-#metadata:
-#  name: monitoring-prometheus-k8s:cluster-admin
-#roleRef:
-#  apiGroup: rbac.authorization.k8s.io
-#  kind: ClusterRole
-#  name: cluster-admin
-#subjects:
-#- kind: ServiceAccount
-#  name: prometheus-k8s
-#  namespace: monitoring
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: monitoring-prometheus-k8s:cluster-admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: prometheus-k8s
+  namespace: monitoring
 ---
 apiVersion: v1
 kind: ServiceAccount
