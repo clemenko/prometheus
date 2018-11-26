@@ -5963,7 +5963,7 @@ data:
       "version": 1
     }
 
-  deployment-dashboard.json: |+
+  kube_clsuter_health.json: |+
     {
       "annotations": {
         "list": [
@@ -5982,7 +5982,8 @@ data:
       "editable": true,
       "gnetId": 1621,
       "graphTooltip": 0,
-      "iteration": 1543241988545,
+      "id": 3,
+      "iteration": 1542826049833,
       "links": [],
       "panels": [
         {
@@ -8532,7 +8533,7 @@ data:
           "type": "row"
         }
       ],
-      "refresh": false,
+      "refresh": "10s",
       "schemaVersion": 16,
       "style": "dark",
       "tags": [
@@ -8569,8 +8570,8 @@ data:
         ]
       },
       "time": {
-        "from": "2018-11-26T14:53:19.361Z",
-        "to": "2018-11-26T15:03:19.363Z"
+        "from": "now-5m",
+        "to": "now"
       },
       "timepicker": {
         "refresh_intervals": [
@@ -8600,6 +8601,6 @@ data:
       "timezone": "browser",
       "title": "Kube - Cluster Health",
       "uid": "bOOvF3fik",
-      "version": 1
+      "version": 8
     }
 ---
