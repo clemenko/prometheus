@@ -94,3 +94,4 @@ curl -skX PUT http://admin:$password@$URL:3000/api/org/preferences -H 'Content-T
 echo "$GREEN" "[ok]" "$NORMAL"
 
 echo " grafana's login : admin / Pa22word "
+
