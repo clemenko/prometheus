@@ -7288,8 +7288,7 @@ data:
       "editable": true,
       "gnetId": 6417,
       "graphTooltip": 1,
-      "id": null,
-      "iteration": 1543463205967,
+      "iteration": 1543464890611,
       "links": [
         {
           "asDropdown": true,
@@ -8626,7 +8625,7 @@ data:
           "tableColumn": "",
           "targets": [
             {
-              "expr": "sum(delta(kube_pod_container_status_restarts{namespace=\"kube-system\"}[30m]))",
+              "expr": "sum(delta(kube_pod_container_status_restarts{namespace=~\"$namespace\"}[30m]))",
               "format": "time_series",
               "intervalFactor": 1,
               "refId": "A"
@@ -9084,7 +9083,10 @@ data:
           },
           {
             "allValue": null,
-            "current": {},
+            "current": {
+              "text": "All",
+              "value": "$__all"
+            },
             "datasource": "prometheus",
             "hide": 0,
             "includeAll": true,
@@ -9105,7 +9107,11 @@ data:
           },
           {
             "allValue": null,
-            "current": {},
+            "current": {
+              "tags": [],
+              "text": "All",
+              "value": "$__all"
+            },
             "datasource": "prometheus",
             "hide": 0,
             "includeAll": true,
@@ -9113,7 +9119,7 @@ data:
             "multi": false,
             "name": "namespace",
             "options": [],
-            "query": "label_values(kubernetes_namespace)",
+            "query": "label_values(namespace)",
             "refresh": 1,
             "regex": "",
             "skipUrlSync": false,
@@ -9158,6 +9164,5 @@ data:
       "timezone": "browser",
       "title": "Pod View",
       "uid": "4XuMd2Iiz",
-      "version": 3
+      "version": 1
     }
----
