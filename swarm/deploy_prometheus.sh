@@ -1,15 +1,13 @@
 #!/bin/bash
 set -e
 
+password=Pa22word
+URL=app.dockr.life
+
+# color vars
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 NORMAL=$(tput sgr0)
-NODE_TARGETS=""
-ENGINE_TARGETS=""
-CADVISOR_TARGETS=""
-password=Pa22word
-
-URL=app.dockr.life
 
 #error checking for client bundle
 if [ -z $DOCKER_HOST ]; then
@@ -17,61 +15,8 @@ if [ -z $DOCKER_HOST ]; then
   exit 1
 fi
 
-#get node list
-echo -n " getting node list "
-node_list=$(for NODE in $(docker node ls --format '{{.Hostname}}'); do echo -n "$(docker node inspect --format '{{.Status.Addr}}' "${NODE}") "; done; echo "")
-
-# load images
-for node in ${node_list}; do
-    NODE_TARGETS="${NODE_TARGETS}'${node}:9100',"
-    ENGINE_TARGETS="${ENGINE_TARGETS}'${node}:9323',"
-    CADVISOR_TARGETS="${CADVISOR_TARGETS}'${node}:8080',"
-done
-echo "$GREEN" "[ok]" "$NORMAL"
-
-echo -n " creating prometheus config file "
-cat << EOF > service.prometheus.conf
-global:
-  scrape_interval:     15s
-  evaluation_interval: 15s
-
-scrape_configs:
-  - job_name: 'nodeexporter'
-    scrape_interval: 5s
-    static_configs:
-      - targets: [${NODE_TARGETS}]
-
-#  - job_name: 'nodeengine'
-#    scrape_interval: 5s
-#    static_configs:
-#      - targets: [${ENGINE_TARGETS}]
-
-  - job_name: 'cadvisor'
-    scrape_interval: 5s
-    static_configs:
-      - targets: [${CADVISOR_TARGETS}]
-
-  - job_name: 'prometheus'
-    scrape_interval: 10s
-    static_configs:
-      - targets: ['localhost:9090']
-EOF
-echo "$GREEN" "[ok]" "$NORMAL"
-
-if [[ "$(docker config ls | grep service.prometheus.conf | wc -l|sed 's/ //g')" = 1 ]]; then
-  echo "$RED" " Updating the current config" "$NORMAL"
-
-  echo -n " creating the new docker config "
-  docker config create new.service.prometheus.conf service.prometheus.conf > /dev/null 2>&1
-  echo "$GREEN" "[ok]" "$NORMAL"
-
-  docker service update --config-rm service.prometheus.conf --config-add source=new.service.prometheus.conf,target=/etc/prometheus/prometheus.yml prometheus_prometheus
-
-  exit
-fi
-
 echo -n " creating the docker config "
-docker config create service.prometheus.conf service.prometheus.conf > /dev/null 2>&1
+docker config create service.prometheus.conf prometheus.conf > /dev/null 2>&1
 echo "$GREEN" "[ok]" "$NORMAL"
 
 echo -n " deploying stack "

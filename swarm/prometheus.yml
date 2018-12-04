@@ -36,8 +36,6 @@ services:
         configs:
             - source: prometheus_config
               target: /etc/prometheus/prometheus.yml
-        networks:
-            monitor:
         ports:
           - 9090:9090
         deploy:
@@ -47,8 +45,6 @@ services:
 
     grafana:
         image: "grafana/grafana:5.2.2"
-        networks:
-            monitor:
         ports:
           - 3000:3000
         deploy:
@@ -64,6 +60,3 @@ configs:
     prometheus_config:
         external:
             name: service.prometheus.conf
-
-networks:
-    monitor:
