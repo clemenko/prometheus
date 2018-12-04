@@ -16,13 +16,14 @@ This is a BASIC implementation of Prometheus and Grafana.
 
 ## Deployment/Usage
 To deploy you will need a swarm cluster and a docker engine. Ideally you would use a client bundle pointed at a UCP.
-`git clone https://github.com/clemenko/prometheus_swarm.git`
+`git clone https://github.com/clemenko/prometheus.git`
 
 Source the client bundle, `. ./env.sh`.
 
+### Deploying to Swarm : 
 And run the deploy script...
 Example :
-`./deploy_prometheus.sh`
+`cd swarm; ./deploy_prometheus.sh`
 Right now the script does not allow for updating.
 
 You can ignore the deploy labels in the prometheus.yml. They are for interlock 2.0.
@@ -31,9 +32,11 @@ com.docker.lb.hosts: grafana.dockr.life
 com.docker.lb.port: 3000
 ```
 
+### Deploying to Kubernetes
+This is fairly simply as well. 
+`cd k8s; kubectl apply -f .`
+
 ## Future
-Currently Docker engine provides a prometheus endpoint. This is currently experimental, but I have hopes that it can replace cadvisor. If you want to play with it you can enable it at each engine with :
-```
-echo -e "{ \"storage-driver\": \"overlay2\", \n  \"storage-opts\": [\"overlay2.override_kernel_check=true\"], \n \"metrics-addr\" : \"0.0.0.0:9323\", \n \"experimental\" : true \n}" > /etc/docker/daemon.json; systemctl restart docker
-```
-Idealy this will be done when bootstrapping the node.
+Looking to streamline this more. 
+
+## Please Contribute!
