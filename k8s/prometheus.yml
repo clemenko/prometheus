@@ -679,6 +679,7 @@ spec:
         image: prom/prometheus
         args:
           - '--storage.tsdb.retention=360h'
+          - '--config.file=/etc/prometheus/prometheus.yml'
         ports:
         - name: web
           containerPort: 9090
