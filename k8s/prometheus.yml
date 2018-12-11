@@ -618,10 +618,11 @@ data:
         regex: (.+);(.+);(.+)
         replacement: ${1}://${2}${3}
         target_label: __param_target
-      - target_label: __address__
-        replacement: blackbox
-      - source_labels: [__param_target]
-        target_label: instance
+      - source_labels: [__meta_kubernetes_ingress_scheme,__meta_kubernetes_ingress_host,__meta_kubernetes_ingress_path]
+        action: replace
+        regex: (.+);(.+);(.+)
+        replacement: ${1}://${2}${3}
+        target_label: __address__
       - action: labelmap
         regex: __meta_kubernetes_ingress_label_(.+)
       - source_labels: [__meta_kubernetes_namespace]
