@@ -608,18 +608,12 @@ data:
         action: drop
         
     - job_name: 'kubernetes-ingress'
-      metrics_path: /probe
-      params:
-        module: [http_2xx]
+      metrics_path: /metrics
+      scheme: http
       kubernetes_sd_configs:
       - role: ingress
       relabel_configs:
       - source_labels: [__meta_kubernetes_ingress_scheme,__address__,__meta_kubernetes_ingress_path]
-        regex: (.+);(.+);(.+)
-        replacement: ${1}://${2}${3}
-        target_label: __param_target
-      - source_labels: [__meta_kubernetes_ingress_scheme,__meta_kubernetes_ingress_host,__meta_kubernetes_ingress_path]
-        action: replace
         regex: (.+);(.+);(.+)
         replacement: ${1}://${2}${3}
         target_label: __address__
