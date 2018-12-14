@@ -1,13 +1,21 @@
-# Prometheus
+# Prometheus Kubernetes
 
 ## Apply
 
-  Clone:
+Clone:
 
-    git clone https://github.com/clemenko/prometheus
-    cd k8s
-    kubectl apply -f .
+```bash
+git clone https://github.com/clemenko/prometheus
+cd k8s
+kubectl apply -f .
+```
 
 ## Grafana Login
 
-Find the exposed port for Grafana and login with `admin/Pa22word`.
+Find the exposed port for Grafana.
+
+```bash
+kubectl get svc -n monitoring
+```
+
+And login with `admin/Pa22word`.
