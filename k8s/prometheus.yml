@@ -671,7 +671,7 @@ spec:
       serviceAccountName: prometheus
       containers:
       - name: prometheus
-        image: prom/prometheus
+        image: prom/prometheus 
         args:
           - '--storage.tsdb.retention=360h'
           - '--config.file=/etc/prometheus/prometheus.yml'
@@ -680,7 +680,8 @@ spec:
           containerPort: 9090
         volumeMounts:
         - name: config-volume
-          mountPath: /etc/prometheus
+          mountPath: /etc/prometheus/prometheus.yml
+          subPath: prometheus.yml
   #      - name: rules-volume
 #          mountPath: /etc/prometheus-rules
         - name: prometheus-data
