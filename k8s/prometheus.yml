@@ -2,7 +2,7 @@
 # https://github.com/poseidon/typhoon/tree/master/addons
 # https://github.com/vegasbrianc/prometheus
 # https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md
-#
+# https://github.com/discordianfish/prometheus/blob/76a86519afe94f651cbb27f2a0eb564c2fad5536/documentation/examples/prometheus-kubernetes.yml#L205 
 #
 # https://github.com/docker/orca/blob/e71747caf8d4cd32a42cdfd53540e4640114eb19/project/metrics/using_external_prometheus.md
 # https://github.com/docker/orca/blob/e71747caf8d4cd32a42cdfd53540e4640114eb19/project/metrics/metrics_descriptions.md
