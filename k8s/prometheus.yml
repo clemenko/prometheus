@@ -191,7 +191,7 @@ spec:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: alertmanager
+  name: alertmanager-config
   namespace: monitoring
 data:
   config.yml: |
@@ -429,6 +429,15 @@ data:
     #     message_format: html
     #     notify: true
 ---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: alertmanager-templates
+  namespace: monitoring
+data:
+  empty.txt: |
+    # empty file
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -464,7 +473,7 @@ spec:
       volumes:
       - name: config-volume
         configMap:
-          name: alertmanager
+          name: alertmanager-config
       - name: templates-volume
         configMap:
           name: alertmanager-templates
