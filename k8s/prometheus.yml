@@ -61,10 +61,6 @@ metadata:
   name: node-exporter
   namespace: monitoring
 spec:
-  updateStrategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
   template:
     metadata:
       labels:
@@ -119,9 +115,6 @@ metadata:
   labels:
     app: cadvisor
 spec:
-  selector:
-    matchLabels:
-      name: cadvisor
   template:
     metadata:
       labels:
@@ -436,7 +429,7 @@ metadata:
   namespace: monitoring
 data:
   empty.txt: |
-    # empty file
+    # empty fileZZ
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
