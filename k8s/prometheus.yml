@@ -645,7 +645,7 @@ data:
         module: [http_2xx]
       static_configs:
         - targets:
-          - http://www.hanover.com   
+          - http://www.example.com   
       relabel_configs:
         - source_labels: [__address__]
           target_label: __param_target
