@@ -125,7 +125,7 @@ spec:
     spec:
       containers:
       - name: cadvisor
-        image: google/cadvisor:latest
+        image: google/cadvisor
         volumeMounts:
         - name: rootfs
           mountPath: /rootfs
