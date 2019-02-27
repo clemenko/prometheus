@@ -6,7 +6,7 @@ Clone:
 
 ```bash
 git clone https://github.com/clemenko/prometheus
-cd k8s
+cd prometheus/k8s
 kubectl apply -f .
 ```
 
