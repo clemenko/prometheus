@@ -645,7 +645,7 @@ data:
         module: [http_2xx]
       static_configs:
         - targets:
-          - http://www.hanover.com   
+          - http://www.example.com   
       relabel_configs:
         - source_labels: [__address__]
           target_label: __param_target
@@ -1042,7 +1042,6 @@ spec:
     port: 9115
     protocol: TCP
     targetPort: blackbox
-
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -1076,3 +1075,4 @@ spec:
             # This assumes http-svc exists and routes to healthy endpoints
             serviceName: prometheus-svc
             servicePort: 9090
+
