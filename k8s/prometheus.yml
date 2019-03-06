@@ -125,7 +125,7 @@ spec:
     spec:
       containers:
       - name: cadvisor
-        image: google/cadvisor:latest
+        image: google/cadvisor
         volumeMounts:
         - name: rootfs
           mountPath: /rootfs
@@ -1042,3 +1042,37 @@ spec:
     port: 9115
     protocol: TCP
     targetPort: blackbox
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana-ingress
+  namespace: monitoring
+spec:
+  rules:
+    - host: grafana.dockr.life
+      http:
+        paths:
+        - path: /
+          backend:
+            # This assumes http-svc exists and routes to healthy endpoints
+            serviceName: grafana
+            servicePort: 3000
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: prom-ingress
+  namespace: monitoring
+spec:
+  rules:
+    - host: prom.dockr.life
+      http:
+        paths:
+        - path: /
+          backend:
+            # This assumes http-svc exists and routes to healthy endpoints
+            serviceName: prometheus-svc
+            servicePort: 9090
+
