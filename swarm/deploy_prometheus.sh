@@ -2,7 +2,8 @@
 set -e
 
 password=Pa22word
-URL=app.dockr.life
+#URL=app.dockr.life
+URL=157.230.176.30
 
 # color vars
 RED=$(tput setaf 1)
