@@ -816,11 +816,6 @@ spec:
               cpu: 100m
               memory: 100Mi
           env:
-            # This variable is required to setup templates in Grafana.
-              # The following env variables are required to make Grafana accessible via
-              # the kubernetes api-server proxy. On production clusters, we recommend
-              # removing these env variables, setup auth for grafana, and expose the grafana
-              # service using a LoadBalancer or a public IP.
             - name: GF_AUTH_BASIC_ENABLED
               value: "true"
             - name: GF_AUTH_ANONYMOUS_ENABLED
