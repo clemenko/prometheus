@@ -804,8 +804,8 @@ spec:
         component: core
     spec:
       containers:
-        - image: grafana/grafana
-          name: grafana
+        - name: grafana
+          image: grafana/grafana
           # env:
           resources:
             # keep request = limit to keep this container in guaranteed class
