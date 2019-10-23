@@ -5143,7 +5143,7 @@ data:
       "version": 1
     }
 
-  kube_clsuter_health.json: |+
+  kube_cluster_health.json: |+
     {
       "annotations": {
         "list": [
