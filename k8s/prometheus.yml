@@ -14,7 +14,7 @@ kind: Namespace
 metadata:
   name: monitoring
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: prometheus
@@ -55,12 +55,15 @@ metadata:
   name: prometheus
   namespace: monitoring
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: node-exporter
   namespace: monitoring
 spec:
+  selector:
+    matchLabels:
+      app: node-exporter
   template:
     metadata:
       labels:
@@ -107,7 +110,7 @@ spec:
       hostNetwork: true
       hostPID: true
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: cadvisor
@@ -115,10 +118,13 @@ metadata:
   labels:
     app: cadvisor
 spec:
+  selector:
+    matchLabels:
+      app: cadvisor
   template:
     metadata:
       labels:
-        name: cadvisor
+        app: cadvisor
       annotations:
         prometheus.io.scrape: 'true'
         prometheus.io/port: '4194'
@@ -431,7 +437,7 @@ data:
   empty.txt: |
     # empty fileZZ
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: alertmanager
@@ -674,7 +680,7 @@ spec:
     port: 9090
     targetPort: 9090
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: prometheus-deployment
@@ -787,7 +793,7 @@ spec:
     port: 3000
     targetPort: 3000
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: grafana
@@ -796,6 +802,9 @@ metadata:
     app: grafana
     component: core
 spec:
+  selector:
+    matchLabels:
+      app: grafana
   replicas: 1
   template:
     metadata:
@@ -973,7 +982,7 @@ data:
           preferred_ip_protocol: "ip4" # defaults to "ip6"
           query_name: "www.prometheus.io"
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: blackbox-exporter
@@ -981,6 +990,9 @@ metadata:
   labels:
     app: blackbox-exporter
 spec:
+  selector:
+    matchLabels:
+      app: blackbox-exporter
   replicas: 1
   strategy: 
     type: RollingUpdate
@@ -1038,7 +1050,7 @@ spec:
     protocol: TCP
     targetPort: blackbox
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: grafana-ingress
@@ -1055,7 +1067,7 @@ spec:
             servicePort: 3000
 
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: prom-ingress
