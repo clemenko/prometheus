@@ -1082,4 +1082,33 @@ spec:
             # This assumes http-svc exists and routes to healthy endpoints
             serviceName: prometheus-svc
             servicePort: 9090
-
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana-ingress
+  namespace: monitoring
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`grafana.dockr.life`)
+      kind: Rule
+      services:
+        - name: grafana
+          port: 3000
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prom-ingress
+  namespace: monitoring
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`prom.dockr.life`)
+      kind: Rule
+      services:
+        - name: prometheus-svc
+          port: 9090

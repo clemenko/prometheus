@@ -1,3 +1,6 @@
+
+# DEPRECATED to https://github.com/clemenko/k8s_yaml/tree/master/prometheus
+
 # Prometheus Grafana Swarm deploy-orama
 The intent of this repo is to have a simple way to deploy Prometheus and Grafana with dashboards on Swarm.
 This is a BASIC implementation of Prometheus and Grafana.
